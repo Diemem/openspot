@@ -1,0 +1,63 @@
+{
+  "name": "OpenSpot - Verified Properties & Rentals",
+  "short_name": "OpenSpot",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0F172A",
+  "theme_color": "#2563EB",
+  "description": "Find verified, scam-free rental properties, roommates, and listings in your area using OpenSpot.",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false,
+
+  "categories": ["real estate", "lifestyle", "productivity"],
+
+  "icons": [
+    {
+      "src": "icons/Icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/Icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/Icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/Icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+
+  "shortcuts": [
+    {
+      "name": "Search Properties",
+      "short_name": "Search",
+      "description": "Find rental properties near you",
+      "url": "/map",
+      "icons": [{ "src": "icons/Icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Saved Properties",
+      "short_name": "Saved",
+      "description": "View your favorite listings",
+      "url": "/favorites",
+      "icons": [{ "src": "icons/Icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Messages",
+      "short_name": "Chat",
+      "description": "Talk to landlords and roommates",
+      "url": "/chats",
+      "icons": [{ "src": "icons/Icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
