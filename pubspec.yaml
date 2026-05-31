@@ -40,6 +40,10 @@ dependencies:
   flutter_dotenv: ^5.1.0
   http: ^1.2.0
 
+  # Monitoring & Analytics (Supabase-compatible)
+  sentry_flutter: ^7.14.0
+  package_info_plus: ^5.0.1
+
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
