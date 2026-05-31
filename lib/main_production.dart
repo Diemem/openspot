@@ -7,35 +7,31 @@ import 'core/config/environment_config.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 
+/// Production environment entry point
+/// Build with: flutter build apk -t lib/main_production.dart --release
+/// Build iOS: flutter build ios -t lib/main_production.dart --release
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Make status bar transparent with dark icons (black time/battery on white bg)
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
     statusBarBrightness: Brightness.light,
   ));
 
-  // Initialize environment configuration
-  // Change this to switch between environments:
-  // - Environment.development (default)
-  // - Environment.staging
-  // - Environment.production
-  await EnvironmentConfig.initialize(
-    environment: Environment.development, // 👈 Change this for different environments
-  );
+  // Initialize PRODUCTION environment
+  await EnvironmentConfig.initialize(environment: Environment.production);
 
-  // Print configuration in debug mode
-  if (EnvironmentConfig.enableDebugLogging) {
+  // Only print config in debug mode (won't show in release builds)
+  assert(() {
     EnvironmentConfig.printConfig();
-  }
+    return true;
+  }());
 
-  // Initialize Supabase with environment-specific configuration
   await Supabase.initialize(
     url: EnvironmentConfig.supabaseUrl,
     anonKey: EnvironmentConfig.supabaseAnonKey,
-    debug: EnvironmentConfig.enableDebugLogging,
+    debug: false, // Never debug in production
   );
 
   runApp(const ProviderScope(child: OpenSpotApp()));
@@ -50,7 +46,7 @@ class OpenSpotApp extends ConsumerWidget {
 
     return MaterialApp.router(
       title: EnvironmentConfig.appName,
-      debugShowCheckedModeBanner: !EnvironmentConfig.isProduction,
+      debugShowCheckedModeBanner: false, // Never show in production
       theme: AppTheme.light,
       routerConfig: router,
     );

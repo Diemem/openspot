@@ -7,31 +7,22 @@ import 'core/config/environment_config.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 
+/// Staging environment entry point
+/// Run with: flutter run -t lib/main_staging.dart
+/// Build with: flutter build apk -t lib/main_staging.dart
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Make status bar transparent with dark icons (black time/battery on white bg)
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
     statusBarBrightness: Brightness.light,
   ));
 
-  // Initialize environment configuration
-  // Change this to switch between environments:
-  // - Environment.development (default)
-  // - Environment.staging
-  // - Environment.production
-  await EnvironmentConfig.initialize(
-    environment: Environment.development, // 👈 Change this for different environments
-  );
+  // Initialize STAGING environment
+  await EnvironmentConfig.initialize(environment: Environment.staging);
+  EnvironmentConfig.printConfig();
 
-  // Print configuration in debug mode
-  if (EnvironmentConfig.enableDebugLogging) {
-    EnvironmentConfig.printConfig();
-  }
-
-  // Initialize Supabase with environment-specific configuration
   await Supabase.initialize(
     url: EnvironmentConfig.supabaseUrl,
     anonKey: EnvironmentConfig.supabaseAnonKey,
@@ -50,7 +41,7 @@ class OpenSpotApp extends ConsumerWidget {
 
     return MaterialApp.router(
       title: EnvironmentConfig.appName,
-      debugShowCheckedModeBanner: !EnvironmentConfig.isProduction,
+      debugShowCheckedModeBanner: true, // Show in staging for testing
       theme: AppTheme.light,
       routerConfig: router,
     );
